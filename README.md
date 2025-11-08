@@ -4,13 +4,13 @@ A cryptographically secure password generation library for Python that follows O
 
 ## Features
 
-- 🔒 **Cryptographically Secure**: Uses `secrets.SystemRandom()` for true randomness
-- ⚙️ **Configurable**: Customizable character sets and password length
-- 📦 **Batch Generation**: Generate multiple passwords at once
-- 🧠 **Memorable Passwords**: Generate human-readable passwords with words
-- 🧪 **Comprehensive Testing**: >95% test coverage with pytest
-- 📚 **Full Documentation**: Complete API documentation with examples
-- 🔍 **Security Validation**: Automatic entropy checking and pattern prevention
+-  **Cryptographically Secure**: Uses `secrets.SystemRandom()` for true randomness
+-  **Configurable**: Customizable character sets and password length
+-  **Batch Generation**: Generate multiple passwords at once
+-  **Memorable Passwords**: Generate human-readable passwords with words
+-  **Comprehensive Testing**: >95% test coverage with pytest
+-  **Full Documentation**: Complete API documentation with examples
+-  **Security Validation**: Automatic entropy checking and pattern prevention
 
 ## Installation
 
@@ -187,6 +187,6 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ## Support
 
 For questions and support:
-- GitHub Issues: [Report bugs](https://github.com/your-username/pass-gen/issues)
+- GitHub Issues: [Report bugs](https://github.com/brivox5/pass-gen/issues)
 - Documentation: [Read the docs](https://pass-gen.readthedocs.io/)
-- Email: support@example.com
+- Email: brivox5@protonmail.com
