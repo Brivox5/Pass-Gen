@@ -1,6 +1,6 @@
 {
   "Pass-Gen": {
-    "avg_generation_time": 2.0712614059448242e-05,
+    "avg_generation_time": 2.043008804321289e-05,
     "avg_entropy": 114.98063662374365,
     "avg_crack_time": 5.66250365134014e+34,
     "min_entropy": 78.65506622013166,
@@ -8,47 +8,47 @@
     "sample_count": 200
   },
   "Simple Random": {
-    "avg_generation_time": 4.52280044555664e-06,
-    "avg_entropy": 114.44400449683302,
-    "avg_crack_time": 5.239963566990535e+34,
-    "min_entropy": 70.29577194153086,
+    "avg_generation_time": 4.411935806274414e-06,
+    "avg_entropy": 114.67290867823503,
+    "avg_crack_time": 5.239963566990194e+34,
+    "min_entropy": 76.70780907334513,
     "max_entropy": 157.31013244026332,
     "sample_count": 200
   },
   "Crypto Secure": {
-    "avg_generation_time": 1.1018514633178712e-05,
-    "avg_entropy": 114.63462732447722,
-    "avg_crack_time": 5.239963566990535e+34,
-    "min_entropy": 70.29577194153086,
+    "avg_generation_time": 1.0755062103271484e-05,
+    "avg_entropy": 113.70442158047143,
+    "avg_crack_time": 4.809808430700855e+34,
+    "min_entropy": 38.77443751081734,
     "max_entropy": 157.31013244026332,
     "sample_count": 200
   },
   "Pass-Gen Memorable": {
-    "avg_generation_time": 0.002641531229019165,
-    "avg_entropy": 216.26865916110364,
-    "avg_crack_time": 1.2674783390522137e+65,
-    "min_entropy": 137.64636588523038,
-    "max_entropy": 262.1835540671055,
+    "avg_generation_time": 0.002407921552658081,
+    "avg_entropy": 51.69925001442312,
+    "avg_crack_time": 3656.158440062971,
+    "min_entropy": 51.69925001442312,
+    "max_entropy": 51.69925001442312,
     "sample_count": 200
   },
   "Passlib": {
-    "avg_generation_time": 8.552074432373046e-06,
-    "avg_entropy": 106.95730291763238,
-    "avg_crack_time": 2.602199481644186e+30,
+    "avg_generation_time": 6.976127624511719e-06,
+    "avg_entropy": 106.96237804947731,
+    "avg_crack_time": 2.6021994713912774e+30,
     "min_entropy": 68.4052766176931,
     "max_entropy": 142.90071144928498,
     "sample_count": 200
   },
   "PasswordGenerator": {
-    "avg_generation_time": 0.07240483760833741,
-    "avg_entropy": 166.32269211132004,
-    "avg_crack_time": 3.243355289002868e+45,
-    "min_entropy": 117.98259933019747,
+    "avg_generation_time": 0.07079293251037598,
+    "avg_entropy": 162.66553695266524,
+    "avg_crack_time": 3.252278171028086e+45,
+    "min_entropy": 38.77443751081734,
     "max_entropy": 196.63766555032913,
     "sample_count": 200
   },
   "Faker": {
-    "avg_generation_time": 0.0011611700057983399,
+    "avg_generation_time": 0.0010357570648193359,
     "avg_entropy": 65.54588851677637,
     "avg_crack_time": 53861511.40948993,
     "min_entropy": 65.54588851677637,

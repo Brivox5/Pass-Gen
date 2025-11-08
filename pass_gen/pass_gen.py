@@ -8,7 +8,6 @@ cryptographically secure passwords with configurable parameters.
 import secrets
 import string
 import os
-import random
 from typing import List, Optional, Set
 
 
@@ -263,9 +262,9 @@ class PasswordGenerator:
                           'honeydew', 'iceberg', 'jackfruit', 'kiwi', 'lemon', 'mango', 'nectarine',
                           'orange', 'pear', 'quince', 'raspberry', 'strawberry', 'tangerine',
                           'ugli', 'vanilla', 'watermelon', 'xigua', 'yam', 'zucchini']
-            selected_words = random.sample(basic_words, min(word_count, len(basic_words)))
+            selected_words = self._random.sample(basic_words, min(word_count, len(basic_words)))
         else:
-            selected_words = random.sample(words, min(word_count, len(words)))
+            selected_words = self._random.sample(words, min(word_count, len(words)))
         
         # Apply capitalization if requested
         if capitalize:
@@ -277,7 +276,7 @@ class PasswordGenerator:
         # Add random number if requested
         if add_number:
             # Add number as a separate element
-            password = separator.join([password, str(random.randint(0, 9))])
+            password = separator.join([password, str(self._random.randint(0, 9))])
         
         # Filter out excluded characters if specified
         if self.exclude_chars:

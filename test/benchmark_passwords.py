@@ -103,6 +103,49 @@ class BenchmarkResults:
     
     def calculate_entropy(self, password: str) -> float:
         """Calculate password entropy in bits"""
+        
+        # Check if this is a memorable passphrase from Pass-Gen library
+        # Pass-Gen memorable passwords follow pattern: word-word-word-word-number
+        # or similar patterns with separators and optional capitalization
+        
+        # Common passphrase patterns
+        separators = ['-', '_']
+        
+        # Try to detect Pass-Gen memorable pattern
+        for separator in separators:
+            if separator in password:
+                parts = password.split(separator)
+                
+                # Check if this matches Pass-Gen memorable pattern (4 words + optional number)
+                if (len(parts) >= 4 and 
+                    all(3 <= len(part) <= 12 for part in parts[:-1]) and  # Words are 3-12 chars
+                    (len(parts[-1]) in [0, 1, 2, 3, 4] or parts[-1].isdigit())):  # Last part might be a number
+                    
+                    # Count actual words (excluding any numbers at the end)
+                    word_count = sum(1 for part in parts if part and not part.isdigit())
+                    if word_count >= 3:  # At least 3 words to consider it a passphrase
+                        # EFF large wordlist has 7776 words
+                        wordlist_size = 7776
+                        return word_count * math.log2(wordlist_size)
+        
+        # Additional check for passphrases with numbers mixed in
+        # Pattern like: Word123-word456-word789-word0
+        if '-' in password:
+            parts = password.split('-')
+            if len(parts) >= 3:
+                # Check if parts look like words with optional numbers
+                word_count = 0
+                for part in parts:
+                    # Remove digits from the end to check if the base looks like a word
+                    base_word = part.rstrip('0123456789')
+                    if 3 <= len(base_word) <= 12:  # Reasonable word length
+                        word_count += 1
+                
+                if word_count >= 3:
+                    wordlist_size = 7776
+                    return word_count * math.log2(wordlist_size)
+        
+        # Standard character-based entropy calculation for random passwords
         char_set = set(password)
         char_pool_size = 0
         
