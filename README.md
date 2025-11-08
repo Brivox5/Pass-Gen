@@ -1,32 +1,58 @@
-# Pass-Gen
+# Pass-Gen 🔐
 
 A cryptographically secure password generation library for Python that follows OWASP Top 10 and NIST SP 800-63B security guidelines.
 
-## Features
+## 📖 Table of Contents
 
--  **Cryptographically Secure**: Uses `secrets.SystemRandom()` for true randomness
--  **Configurable**: Customizable character sets and password length
--  **Batch Generation**: Generate multiple passwords at once
--  **Memorable Passwords**: Generate human-readable passwords with words
--  **Comprehensive Testing**: >95% test coverage with pytest
--  **Full Documentation**: Complete API documentation with examples
--  **Security Validation**: Automatic entropy checking and pattern prevention
+- [ Features](#-features)
+- [ Installation](#-installation)
+- [ Quick Start](#-quick-start)
+- [ Advanced Usage](#️-advanced-usage)
+- [ Security Features](#-security-features)
+- [ Benchmarking and Security Analysis](#-benchmarking-and-security-analysis)
+- [ Testing](#-testing)
+- [ Contributing](#-contributing)
+- [ Security Issues](#️-security-issues)
+- [ License](#-license)
+- [ Acknowledgments](#-acknowledgments)
+- [ Support](#-support)
 
-## Installation
+[![Python Version](https://img.shields.io/badge/python-3.8%2B-blue)](https://www.python.org/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Security](https://img.shields.io/badge/Security-Cryptographic-green)](https://owasp.org/)
+[![Tests](https://img.shields.io/badge/Tests-95%25%20coverage-success)](https://pytest.org/)
 
+## ✨ Features
+
+- **Cryptographically Secure**: Uses `secrets.SystemRandom()` for true randomness
+- **Configurable**: Customizable character sets and password length
+- **Batch Generation**: Generate multiple passwords at once
+- **Memorable Passwords**: Generate human-readable passwords using EFF wordlist
+- **Comprehensive Testing**: >95% test coverage with pytest
+- **Full Documentation**: Complete API documentation with examples
+- **Security Validation**: Automatic entropy checking and pattern prevention
+- **Benchmarking**: Built-in performance and security comparison tools
+
+## 📦 Installation
+
+### From GitHub
 ```bash
 pip install git+https://github.com/Brivox5/Pass-Gen.git
 ```
 
+### From Source
+```bash
+git clone https://github.com/Brivox5/Pass-Gen.git
+cd Pass-Gen
+pip install -e .
+```
+
 ### Upgrading
-
-To upgrade to the latest version:
-
 ```bash
 pip install --upgrade git+https://github.com/Brivox5/Pass-Gen.git
 ```
 
-## Quick Start
+## 🚀 Quick Start
 
 ```python
 from pass_gen import PasswordGenerator
@@ -37,32 +63,36 @@ generator = PasswordGenerator()
 # Generate a single secure password
 password = generator.generate()
 print(f"Generated password: {password}")
+# Example: "xK8!pL2@qR9#sT4%"
 
 # Generate multiple passwords
 passwords = generator.generate_batch(5)
 print(f"Batch passwords: {passwords}")
+# Example: ['aB3$cD5&eF7*gH9@', 'iJ1!kL3#mN5^oP7&', 'qR9@sT1*uV3%wX5#', 'yZ7$bC1^dE3&fG5*', 'hI9@jK1#lM3^nO5%']
 
 # Generate a memorable password
 memorable = generator.generate_memorable()
 print(f"Memorable password: {memorable}")
+# Example: "apple23-banana45-carrot67-dolphin89"
 ```
 
-## Advanced Usage
+## 🛠️ Advanced Usage
 
 ### Custom Configuration
 
 ```python
-# Custom configuration
+# Custom configuration with all options
 generator = PasswordGenerator(
-    length=20,
-    include_uppercase=True,
-    include_lowercase=True,
-    include_digits=True,
-    include_special=True,
-    custom_chars="!@#$"
+    length=20,                    # Password length (default: 16)
+    include_uppercase=True,       # Include A-Z (default: True)
+    include_lowercase=True,       # Include a-z (default: True)
+    include_digits=True,         # Include 0-9 (default: True)
+    include_special=True,        # Include special chars (default: True)
+    custom_chars="!@#$%^&*"      # Additional custom characters
 )
 
 password = generator.generate()
+# Example: "K8!pL2@qR9#sT4%vW6^yX7&"
 ```
 
 ### Memorable Passwords
@@ -70,10 +100,10 @@ password = generator.generate()
 ```python
 # Generate memorable password with custom options
 memorable = generator.generate_memorable(
-    word_count=4,
-    separator="-",
-    capitalize_words=True,
-    add_numbers=True
+    word_count=4,           # Number of words (default: 4)
+    separator="-",         # Word separator (default: "-")
+    capitalize_words=True,  # Capitalize each word (default: False)
+    add_numbers=True       # Add random numbers (default: True)
 )
 # Example: "Apple23-Banana45-Carrot67-Dolphin89"
 ```
@@ -85,28 +115,50 @@ memorable = generator.generate_memorable(
 passwords = generator.generate_batch(10)
 for i, pwd in enumerate(passwords, 1):
     print(f"Password {i}: {pwd}")
+    # Password 1: "xK8!pL2@qR9#sT4%"
+    # Password 2: "yL9$mN3^oP5&qR7*"
+    # ... etc
 ```
 
-## Security Features
+## 🔒 Security Features
 
-### OWASP Compliance
-- Minimum password length: 8 characters
-- Support for multiple character sets
-- Prevention of common patterns and sequences
-- Cryptographically secure random number generation
+### OWASP Compliance ✅
+- **Minimum length**: 8+ characters (configurable)
+- **Character diversity**: Multiple character sets supported
+- **Pattern prevention**: Blocks common sequences and patterns
+- **Cryptographic security**: Uses `secrets.SystemRandom()`
+- **No dictionary words**: In random password generation
 
-### NIST SP 800-63B Compliance
-- Minimum entropy of 64 bits
-- No arbitrary complexity requirements
-- Support for all printable ASCII characters
-- No password composition rules
+### NIST SP 800-63B Compliance ✅
+- **Entropy-based**: 64+ bits minimum (configurable)
+- **No complexity rules**: Follows modern password guidelines
+- **All ASCII characters**: Full printable ASCII support
+- **Memorable passphrases**: EFF wordlist with 7776 words
+- **No arbitrary restrictions**: Focus on actual security
 
-### Entropy Calculation
+### Entropy Calculation 🔢
 
-The library automatically calculates and validates password entropy:
-- **64+ bits**: Recommended for most use cases
-- **80+ bits**: High security applications
-- **100+ bits**: Maximum security requirements
+The library uses NIST-compliant entropy calculations:
+
+| Security Level | Entropy Bits | Use Case |
+|----------------|-------------|----------|
+| **🔐 Minimum** | 64+ bits | Basic web accounts |
+| **🛡️ Recommended** | 80+ bits | Email, social media |
+| **🔒 High Security** | 100+ bits | Banking, crypto wallets |
+| **🚀 Maximum Security** | 128+ bits | Government, military |
+
+### EFF Wordlist Security 📊
+
+Memorable passwords use the EFF Large Wordlist with 7,776 words:
+
+| Word Count | Entropy Bits | Security Level |
+|-----------|-------------|----------------|
+| 3 words | 38.76 bits | Basic |
+| 4 words | 51.68 bits | **Recommended** |
+| 5 words | 64.60 bits | High Security |
+| 6 words | 77.52 bits | Maximum Security |
+| 7 words | 90.44 bits | Extreme Security |
+| 8 words | 103.36 bits | Ultra Security |
 
 ## API Reference
 
@@ -192,105 +244,128 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - NIST for password security recommendations
 - Python `secrets` module team for cryptographic security
 
-## Benchmarking and Security Analysis
+## 📊 Benchmarking and Security Analysis
 
-### Comparative Performance Testing
+### Comparative Performance Testing (Based on 200 samples per library)
 
-We conducted comprehensive benchmarking tests comparing Pass-Gen against multiple password generation libraries:
+#### Security and Performance Comparison
 
-#### Key Findings (Based on 200 samples per library)
-
-| Library | Avg Generation Time | Avg Entropy | Min Entropy | Max Entropy | Avg Time to Crack |
-|---------|---------------------|-------------|-------------|-------------|-------------------|
-| **Pass-Gen Memorable** | 2.64 ms | **216.27 bits** | 137.65 bits | 262.18 bits | **4.02e+57 years** |
-| PasswordGenerator | 72.40 ms | 166.32 bits | 117.98 bits | 196.64 bits | 1.03e+38 years |
+| Library |  Avg Time |  Avg Entropy |  Min Entropy |  Max Entropy |  Avg Crack Time |
+|---------|------------|---------------|---------------|---------------|-------------------|
+| **Pass-Gen Memorable** | 2.64 ms | **51.70 bits** | 51.68 bits | 51.72 bits | **1.02 hours** |
 | **Pass-Gen** | 0.02 ms | 114.98 bits | 78.66 bits | 157.31 bits | 1.80e+27 years |
-| Crypto Secure | 0.01 ms | 114.63 bits | 70.30 bits | 157.31 bits | 1.66e+27 years |
-| Simple Random | 0.004 ms | 114.44 bits | 70.30 bits | 157.31 bits | 1.66e+27 years |
+| PasswordGenerator | 72.40 ms | 162.67 bits | 117.98 bits | 196.64 bits | 1.03e+38 years |
+| Crypto Secure | 0.01 ms | 113.70 bits | 70.30 bits | 157.31 bits | 1.53e+27 years |
+| Simple Random | 0.004 ms | 114.67 bits | 70.30 bits | 157.31 bits | 1.66e+27 years |
 | Passlib | 0.009 ms | 106.96 bits | 68.41 bits | 142.90 bits | 8.25e+22 years |
 | Faker | 1.16 ms | 65.55 bits | 65.55 bits | 65.55 bits | 1.71 years |
 
-#### Security Methodology
-- **Entropy Calculation**: Based on NIST SP 800-63B guidelines
-- **Crack Time Estimation**: Assumes 1000 attempts/second attack scenario
-- **Minimum Requirements**: 64+ bits for general use, 80+ bits for high security
-
-#### Performance Comparison
+#### Performance Comparison Visualization
 
 ![Password Benchmark Comparison](password_benchmark.png)
 
-#### Detailed Analysis
+### 🔍 Detailed Analysis
 
-1. **Pass-Gen Memorable**: Highest security (216 bits average entropy) but slower generation
-2. **PasswordGenerator**: Very high entropy but extremely slow due to subprocess execution
-3. **Standard Pass-Gen**: Excellent balance of speed and security
-4. **Cryptographic Methods**: Similar performance to Pass-Gen but without advanced features
-5. **Passlib**: Good performance but lower entropy than Pass-Gen
-6. **Faker**: Fast but insecure - constant low entropy makes it vulnerable
+#### 1. **Pass-Gen Memorable** 🧠
+- **Entropy**: 51.70 bits (4 words from 7776-word list)
+- **Security Level**: Good for most personal accounts
+- **Usability**: Excellent - easy to remember and type
+- **Use Case**: Email, social media, personal accounts
 
-#### Recommendations
-- ✅ **Best overall**: Pass-Gen Memorable for maximum security
-- ✅ **Best performance**: Standard Pass-Gen for speed/security balance  
-- ✅ **High security**: Use libraries with >80 bits entropy
-- ❌ **Avoid**: Non-cryptographic random generators for sensitive applications
+#### 2. **Standard Pass-Gen** 🔐
+- **Entropy**: 114.98 bits (extremely high security)
+- **Security Level**: Maximum security
+- **Performance**: Fastest cryptographic generation
+- **Use Case**: Banking, crypto, government systems
 
-### Running Benchmarks
+#### 3. **PasswordGenerator** ⚡
+- **Entropy**: 162.67 bits (highest in test)
+- **Performance**: Very slow due to subprocess execution
+- **Use Case**: When absolute maximum entropy is required
+
+#### 4. **Other Cryptographic Methods** 🔒
+- Similar security to Pass-Gen but without advanced features
+- Good alternatives for basic password generation
+
+### 🎯 Recommendations
+
+| Use Case | Recommended Method | Entropy | Security Level |
+|----------|-------------------|---------|----------------|
+| **Personal Accounts** | Pass-Gen Memorable | 51.70 bits | ✅ Good |
+| **Email & Social Media** | Pass-Gen Memorable | 51.70 bits | ✅ Good |
+| **Banking & Financial** | Standard Pass-Gen | 114.98 bits | 🔒 Excellent |
+| **Cryptocurrency** | Standard Pass-Gen | 114.98 bits | 🔒 Excellent |
+| **Government Systems** | Standard Pass-Gen | 114.98 bits | 🔒 Excellent |
+| **Maximum Security** | PasswordGenerator | 162.67 bits | 🚀 Extreme |
+
+### 🔬 Security Methodology
+
+- **Entropy Calculation**: NIST SP 800-63B compliant
+- **Crack Time Estimation**: 1000 attempts/second attack scenario
+- **Wordlist**: EFF Large Wordlist (7776 words)
+- **Memorable Password Formula**: `(Number of words) × log₂(7776)`
+- **Random Password Formula**: `(Password length) × log₂(Character pool size)`
+
+### 🧪 Running Benchmarks
 
 To reproduce these benchmarks:
 
 ```bash
+# Install dependencies
 pip install matplotlib numpy passlib passwordgenerator faker
+
+# Run benchmark
 python test/benchmark_passwords.py
 ```
 
-The script will generate:
+The script generates:
 - `password_benchmark.png`: Visual comparison graph
 - `benchmark_data.json`: Raw statistical data
+- Console output with detailed metrics
 
-#### Test Results Summary
+### 📈 Real-World Security Assessment
 
-![Password Benchmark Results](password_benchmark.png)
+| Password Type | Entropy Bits | Time to Crack (1000 guesses/sec) | Security Assessment |
+|---------------|-------------|-----------------------------------|---------------------|
+| 4-word Passphrase | 51.70 bits | 1.02 hours | ✅ Good for personal use |
+| 16-char Random | 114.98 bits | 1.80e+27 years | 🔒 Excellent security |
+| 12-char Simple | 45.60 bits | 2.3e+03 years | ⚠️ Basic security |
+| 8-char Common | ~28 bits | ~3 minutes | ❌ Insecure |
 
-**Key Findings:**
-- **Pass-Gen Memorable**: Highest security with excellent usability (est. 1.5e+13 years to crack)
-- **Pass-Gen**: Strong security with fast generation (est. 1.2e+12 years to crack)
-- **Crypto Secure**: Good security but slower generation
-- **Simple Random**: Fastest but weakest security
+> **Note**: Memorable passphrases provide excellent usability with good security, while random passwords provide maximum security for critical applications.
 
-#### Detailed Performance Metrics
+## 📞 Support
 
-| Method | Generation Time (ms) | Entropy (bits) | Time to Crack (years) |
-|--------|----------------------|----------------|----------------------|
-| Pass-Gen Memorable | 0.42 | 77.5 | 1.5e+13 |
-| Pass-Gen | 0.21 | 72.0 | 1.2e+12 |
-| Crypto Secure | 0.85 | 72.0 | 1.2e+12 |
-| Simple Random | 0.15 | 45.6 | 2.3e+03 |
+For questions, support, and bug reports:
 
-### Security Methodology
+- **🐛 Bug Reports**: [GitHub Issues](https://github.com/Brivox5/pass-gen/issues)
+- **📚 Documentation**: [Read the Docs](https://pass-gen.readthedocs.io/)
+- **📧 Email**: brivox5@protonmail.com
+- **💬 Discussions**: [GitHub Discussions](https://github.com/Brivox5/pass-gen/discussions)
 
-Time to crack estimates are calculated using:
-- **NIST SP 800-63B** entropy requirements
-- **OWASP** password security guidelines
-- **1000 guesses per second** attack scenario
-- **Brute-force** cracking assumptions
+### 🚨 Security Vulnerabilities
 
-### Running Benchmarks
+If you discover a security vulnerability, please report it responsibly:
+- **Email**: brivox5@protonmail.com (encrypted preferred)
+- **Do NOT** disclose vulnerabilities publicly
+- We follow responsible disclosure practices
 
-To reproduce the benchmark tests:
+### 🤝 Contributing
 
-```bash
-cd test
-python benchmark_passwords.py
-```
+We welcome contributions! Please see our contributing guidelines:
+1. Fork the repository
+2. Create a feature branch
+3. Make your changes
+4. Add tests for new functionality
+5. Submit a pull request
 
-The script will:
-1. Generate passwords using different methods
-2. Calculate entropy and security metrics
-3. Generate comparative graphs
-4. Save results to `benchmark_data.json`
+### 📊 Changelog
 
-## Support
-For questions and support:
-- GitHub Issues: [Report bugs](https://github.com/Brivox5/pass-gen/issues)
-- Documentation: [Read the docs](https://pass-gen.readthedocs.io/)
-- Email: brivox5@protonmail.com
+- **V1.0.3**: Fixed entropy calculation for memorable passwords
+- **V1.0.2**: Added EFF wordlist data file
+- **V1.0.1**: Comprehensive benchmarking implementation
+- **V1.0.0**: Initial release with cryptographic security
+
+---
+
+**Pass-Gen** 🔐 - Making password security simple and effective for everyone.
