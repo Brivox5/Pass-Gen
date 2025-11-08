@@ -171,7 +171,7 @@ pytest --cov=pass_gen --cov-report=html tests/
 ## Security Issues
 
 If you discover a security vulnerability, please report it responsibly:
-- Email: security@example.com
+- Email: brivox5@protonmail.com
 - Do not disclose vulnerabilities publicly
 
 ## License
