@@ -7,6 +7,8 @@ cryptographically secure passwords with configurable parameters.
 
 import secrets
 import string
+import os
+import random
 from typing import List, Optional, Set
 
 
@@ -41,7 +43,8 @@ class PasswordGenerator:
         include_lowercase: bool = True,
         include_digits: bool = True,
         include_special: bool = True,
-        custom_chars: Optional[str] = None
+        custom_chars: Optional[str] = None,
+        exclude_chars: Optional[str] = None
     ) -> None:
         """
         Initialize the password generator with configuration.
@@ -53,6 +56,7 @@ class PasswordGenerator:
             include_digits: Include digits
             include_special: Include special characters
             custom_chars: Custom character set to use (optional)
+            exclude_chars: Characters to exclude from generated passwords (optional)
             
         Raises:
             ValueError: If invalid parameters are provided
@@ -65,6 +69,7 @@ class PasswordGenerator:
         self.include_digits = include_digits
         self.include_special = include_special
         self.custom_chars = custom_chars
+        self.exclude_chars = exclude_chars
         
         self._random = secrets.SystemRandom()
     
@@ -102,7 +107,14 @@ class PasswordGenerator:
         if not char_sets:
             raise ValueError("At least one character set must be selected")
         
-        return ''.join(char_sets)
+        chars = ''.join(char_sets)
+        
+        # Exclude specified characters
+        if self.exclude_chars:
+            for char in self.exclude_chars:
+                chars = chars.replace(char, '')
+        
+        return chars
     
     def _has_required_chars(self, password: str, char_set: str) -> bool:
         """Check if password contains at least one character from each required set."""
@@ -159,6 +171,52 @@ class PasswordGenerator:
             # Check if password meets all requirements
             if self._has_required_chars(password, char_set):
                 return password
+    
+    def generate_pronounceable(
+        self,
+        length: int = 8,
+        pattern: str = "CVCV",
+        separator: str = "-",
+        capitalize: bool = False
+    ) -> str:
+        """
+        Generate a pronounceable password using syllable patterns.
+        
+        Args:
+            length: Length of the password (number of syllables)
+            pattern: Syllable pattern (C=consonant, V=vowel)
+            separator: Separator between syllables
+            capitalize: Whether to capitalize each syllable
+            
+        Returns:
+            A pronounceable password
+        """
+        if length < 1:
+            raise ValueError("Length must be at least 1")
+        
+        # Define consonant and vowel sets
+        consonants = "bcdfghjklmnpqrstvwxyz"
+        vowels = "aeiou"
+        
+        syllables = []
+        
+        for _ in range(length):
+            syllable = ""
+            for char in pattern:
+                if char.upper() == 'C':
+                    syllable += self._random.choice(consonants)
+                elif char.upper() == 'V':
+                    syllable += self._random.choice(vowels)
+                else:
+                    # If pattern contains other characters, use them as-is
+                    syllable += char
+            
+            if capitalize:
+                syllable = syllable.capitalize()
+            
+            syllables.append(syllable)
+        
+        return separator.join(syllables)
         
         raise ValueError(
             "Failed to generate password meeting all requirements after "
@@ -183,49 +241,96 @@ class PasswordGenerator:
         
         return [self.generate() for _ in range(count)]
     
-    def generate_memorable(
-        self,
-        word_count: int = 4,
-        separator: str = "-",
-        capitalize_words: bool = True,
-        add_numbers: bool = True
-    ) -> str:
+    def generate_memorable(self, word_count=4, separator='-', capitalize=False, add_number=False):
         """
-        Generate a memorable password using words.
+        Generate a memorable password using words from the EFF large wordlist.
         
         Args:
-            word_count: Number of words to use (3-6 recommended)
-            separator: Character to separate words
-            capitalize_words: Capitalize each word
-            add_numbers: Add random numbers between words
+            word_count (int): Number of words to use (default: 4)
+            separator (str): Separator between words (default: '-')
+            capitalize (bool): Whether to capitalize each word (default: False)
+            add_number (bool): Whether to add a random number (default: False)
             
         Returns:
-            Memorable password string
+            str: A memorable password
         """
-        # Common word list for memorable passwords
-        words = [
-            "apple", "banana", "carrot", "dolphin", "elephant", "flamingo",
-            "giraffe", "honey", "iguana", "jaguar", "koala", "lemon", "mango",
-            "night", "orange", "panda", "quail", "rabbit", "sunset", "tiger",
-            "umbrella", "violet", "water", "xray", "yellow", "zebra"
-        ]
+        # Load words from EFF large wordlist
+        words = self._load_eff_wordlist()
         
-        selected_words = self._random.sample(words, word_count)
+        if not words:
+            # Fallback to basic words if wordlist loading fails
+            basic_words = ['apple', 'banana', 'cherry', 'date', 'elderberry', 'fig', 'grape', 
+                          'honeydew', 'iceberg', 'jackfruit', 'kiwi', 'lemon', 'mango', 'nectarine',
+                          'orange', 'pear', 'quince', 'raspberry', 'strawberry', 'tangerine',
+                          'ugli', 'vanilla', 'watermelon', 'xigua', 'yam', 'zucchini']
+            selected_words = random.sample(basic_words, min(word_count, len(basic_words)))
+        else:
+            selected_words = random.sample(words, min(word_count, len(words)))
         
-        if capitalize_words:
+        # Apply capitalization if requested
+        if capitalize:
             selected_words = [word.capitalize() for word in selected_words]
         
-        if add_numbers:
-            # Add random numbers between words
-            result = []
-            for i, word in enumerate(selected_words):
-                result.append(word)
-                if i < len(selected_words) - 1:
-                    result.append(str(self._random.randint(0, 99)))
-        else:
-            result = selected_words
+        # Join words with separator
+        password = separator.join(selected_words)
         
-        return separator.join(result)
+        # Add random number if requested
+        if add_number:
+            # Add number as a separate element
+            password = separator.join([password, str(random.randint(0, 9))])
+        
+        # Filter out excluded characters if specified
+        if self.exclude_chars:
+            for char in self.exclude_chars:
+                password = password.replace(char, '')
+        
+        return password
+    
+    def _load_eff_wordlist(self):
+        """
+        Load the EFF large wordlist from the data directory.
+        
+        Returns:
+            list: List of words from the EFF wordlist, or empty list if loading fails
+        """
+        try:
+            # Get the directory of the current file
+            current_dir = os.path.dirname(os.path.abspath(__file__))
+            wordlist_path = os.path.join(current_dir, 'data', 'eff_large_wordlist.txt')
+            
+            words = []
+            with open(wordlist_path, 'r', encoding='utf-8') as f:
+                for line in f:
+                    # Skip empty lines and comments
+                    line = line.strip()
+                    if line and not line.startswith('#'):
+                        # Extract the word part (after the 5-digit code and space)
+                        # Format: "11111\tword" or "11111 word"
+                        if '\t' in line:
+                            parts = line.split('\t', 1)
+                            if len(parts) == 2:
+                                word = parts[1].strip()
+                                if word:
+                                    words.append(word)
+                        elif ' ' in line:
+                            parts = line.split(' ', 1)
+                            if len(parts) == 2:
+                                word = parts[1].strip()
+                                if word:
+                                    words.append(word)
+                        else:
+                            # If no separator, assume it's just a word
+                            words.append(line)
+            
+            print(f"Loaded {len(words)} words from EFF wordlist")
+            return words
+            
+        except FileNotFoundError:
+            print(f"Warning: EFF wordlist not found at {wordlist_path}")
+            return []
+        except Exception as e:
+            print(f"Warning: Error loading EFF wordlist: {e}")
+            return []
     
     def get_configuration(self) -> dict:
         """

@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "pass-gen"
-version = "1.0.0"
+version = "1.0.2"
 description = "A cryptographically secure password generation library"
 readme = "README.md"
 requires-python = ">=3.7"
@@ -12,7 +12,7 @@ license = {text = "MIT"}
 keywords = ["password", "security", "cryptography", "generator"]
 
 authors = [
-    {name = "Pass-Gen Team", email = "your-email@example.com"}
+    {name = "Pass-Gen Team", email = "brivox5@protonmail.com"}
 ]
 
 classifiers = [
