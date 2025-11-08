@@ -7,6 +7,6 @@ with configurable parameters and security best practices.
 
 from .pass_gen import PasswordGenerator
 
-__version__ = "1.0.0"
+__version__ = "1.0.3"
 __author__ = "Pass-Gen Team"
 __all__ = ["PasswordGenerator"]
