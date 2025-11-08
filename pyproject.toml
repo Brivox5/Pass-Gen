@@ -4,6 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "pass-gen"
+version = "1.0.0"
 description = "A cryptographically secure password generation library"
 readme = "README.md"
 requires-python = ">=3.7"
@@ -33,10 +34,10 @@ classifiers = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/your-username/pass-gen"
+Homepage = "https://github.com/Brivox5/Pass-Gen"
 Documentation = "https://pass-gen.readthedocs.io/"
-Repository = "https://github.com/your-username/pass-gen"
-Issues = "https://github.com/your-username/pass-gen/issues"
+Repository = "https://github.com/Brivox5/Pass-Gen"
+Issues = "https://github.com/Brivox5/Pass-Gen/issues"
 
 [tool.setuptools]
 packages = {find = {}}

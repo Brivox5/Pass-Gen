@@ -4,18 +4,18 @@ A cryptographically secure password generation library for Python that follows O
 
 ## Features
 
-- 🔒 **Cryptographically Secure**: Uses `secrets.SystemRandom()` for true randomness
-- ⚙️ **Configurable**: Customizable character sets and password length
-- 📦 **Batch Generation**: Generate multiple passwords at once
-- 🧠 **Memorable Passwords**: Generate human-readable passwords with words
-- 🧪 **Comprehensive Testing**: >95% test coverage with pytest
-- 📚 **Full Documentation**: Complete API documentation with examples
-- 🔍 **Security Validation**: Automatic entropy checking and pattern prevention
+-  **Cryptographically Secure**: Uses `secrets.SystemRandom()` for true randomness
+-  **Configurable**: Customizable character sets and password length
+-  **Batch Generation**: Generate multiple passwords at once
+-  **Memorable Passwords**: Generate human-readable passwords with words
+-  **Comprehensive Testing**: >95% test coverage with pytest
+-  **Full Documentation**: Complete API documentation with examples
+-  **Security Validation**: Automatic entropy checking and pattern prevention
 
 ## Installation
 
 ```bash
-pip install pass-gen
+pip install git+https://github.com/Brivox5/Pass-Gen.git
 ```
 
 ## Quick Start
@@ -171,7 +171,7 @@ pytest --cov=pass_gen --cov-report=html tests/
 ## Security Issues
 
 If you discover a security vulnerability, please report it responsibly:
-- Email: security@example.com
+- Email: brivox5@protonmail.com
 - Do not disclose vulnerabilities publicly
 
 ## License
@@ -185,8 +185,6 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - Python `secrets` module team for cryptographic security
 
 ## Support
-
 For questions and support:
-- GitHub Issues: [Report bugs](https://github.com/your-username/pass-gen/issues)
-- Documentation: [Read the docs](https://pass-gen.readthedocs.io/)
-- Email: support@example.com
+- GitHub Issues: [Report bugs](https://github.com/Brivox5/Pass-Gen/issues)
+- Email: brivox5@protonmail.com

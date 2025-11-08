@@ -186,3 +186,128 @@ docs/build/
 *.swp
 *.swo
 *~
+
+# Development and build artifacts
+*.pyc
+*.pyo
+*.pyd
+__pycache__/
+*.so
+*.egg-info/
+*.egg
+.pytest_cache/
+.mypy_cache/
+.coverage
+htmlcov/
+.tox/
+.nox/
+
+# Package building and distribution
+build/
+dist/
+*.egg-info/
+*.tar.gz
+*.whl
+
+# Environment and configuration files
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+.venv/
+venv/
+env/
+
+# IDE specific files
+.vscode/
+.idea/
+*.code-workspace
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Logs and temporary files
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+*.tmp
+*.temp
+
+# Database files
+*.db
+*.sqlite
+*.sqlite3
+
+# Testing and coverage
+.coverage
+.coverage.*
+htmlcov/
+.pytest_cache/
+
+# Documentation build
+/docs/build/
+/docs/_build/
+
+# Package manager specific
+Pipfile.lock
+poetry.lock
+.pdm.toml
+
+# Jupyter notebooks
+.ipynb_checkpoints/
+
+# Virtual environments
+venv/
+.venv/
+env/
+ENV/
+
+# Development configuration
+local_settings.py
+settings_local.py
+
+# Build outputs
+*.mo
+*.pot
+
+# Backup files
+*.bak
+*.backup
+*.old
+
+# Compression files
+*.gz
+*.zip
+*.rar
+*.7z
+
+# Binary files
+*.exe
+*.dll
+*.lib
+*.a
+*.o
+*.obj
+
+# Security
+secrets.py
+config_secret.py
+*.key
+*.pem
+*.crt
+
+# Development tools
+.cache/
+.nyc_output/
+
+# Package lock files (if any)
+package-lock.json
+yarn.lock

@@ -21,7 +21,7 @@ To install from the source code:
 
    .. code-block:: bash
 
-      git clone https://github.com/your-username/pass-gen.git
+      git clone https://github.com/Brivox5/Pass-Gen.git
       cd pass-gen
 
 2. Install in development mode:
