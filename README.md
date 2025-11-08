@@ -15,7 +15,7 @@ A cryptographically secure password generation library for Python that follows O
 ## Installation
 
 ```bash
-pip install pass-gen
+pip install https://github.com/Brivox5/Pass-Gen
 ```
 
 ## Quick Start
