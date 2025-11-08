@@ -186,5 +186,6 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## Support
 For questions and support:
-- GitHub Issues: [Report bugs](https://github.com/Brivox5/Pass-Gen/issues)
+- GitHub Issues: [Report bugs](https://github.com/Brivox5/pass-gen/issues)
+- Documentation: [Read the docs](https://pass-gen.readthedocs.io/)
 - Email: brivox5@protonmail.com
